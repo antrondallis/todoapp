@@ -1,4 +1,4 @@
-<!-- Jumbotron -->
+
 <div class="card card-image" style="background-image: url(./assets/bg1.jpeg);">
   <div class="text-white text-center rgba-stylish-strong py-5 px-4">
     <div class="py-5">
@@ -14,33 +14,39 @@
 </div>
 <!-- Jumbotron -->
 
-<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form class="form" (ngSubmit)="onSubmit()">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-            <span aria-hidden="true">×</span>
-          </button>
-          <h4 class="modal-title w-100" id="myModalLabel">Add Todo</h4>
-        </div>
-        <div class="modal-body">
-          <div class="md-form mb-5">
-            <i class="fa fa-list prefix grey-text"></i>
-            <input type="text" name="name" [(ngModel)]="name" placeholder="Todo Name...">
+<!-- Modal for Add Todo-->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document" style="z-index: 1100">
+      <form class="form" (ngSubmit)="onSubmit()" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title w-100" id="myModalLabel">Add Todo</h4>
           </div>
-
-          <div class="md-form mb4">
-              <i class="fa fa-clock prefix grey-text"></i>
-              <input type="text" name="date" [(ngModel)]="date" placeholder="Pick Date...">
+          <div class="modal-body">
+            <div class="md-form mb-5">
+              <i class="fa fa-list prefix grey-text"></i>
+              <input type="text" name="name" [(ngModel)]="name" placeholder="Todo Name...">
+            </div>
+  
+            <div class="md-form mb4">
+                <i class="fa fa-clock prefix grey-text"></i>
+                <!-- <input type="text" name="date" class="timepicker" [(ngModel)]="date" placeholder="Pick Date..."> -->
+                <!-- <input type="text" name="date" class="timepicker" [owlDateTime]="date" [owlDateTimeTrigger]="date" placeholder="Date/Time..."> -->
+                <input type="text" name="date" [(ngModel)]="date" class="timepicker" placeholder="Date/Time..." [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+                <span [owlDateTimeTrigger]="dt" ></span>
+                <owl-date-time [pickerMode]="'dialog'" style="z-index: 1" #dt></owl-date-time>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" color="secondary" mdbBtn class="red accent-1 waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+            <button type="button" type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save changes</button>
+            <!-- <input type="submit" value="Add New Todo" class="relative waves-light"> -->
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
-          <button type="button" type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save changes</button>
-          <!-- <input type="submit" value="Add New Todo" class="relative waves-light"> -->
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  <!-- End Modal for Add Todo-->

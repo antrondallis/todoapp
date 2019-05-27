@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
+declare var jquery:any;
+declare var $ :any;
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
@@ -23,7 +25,8 @@ export class TitleComponent implements OnInit {
       name: this.name,
       date: this.date
     }
-    console.log(`Todo Added: ${todo.name} ${todo.date}`);
+    //console.log(`Todo Added: ${todo.name} ${todo.date}`);
+    this.addTodo.emit(todo);
   }
 
 }
