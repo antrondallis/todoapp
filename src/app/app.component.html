@@ -2,11 +2,9 @@
 <div style="text-align:center">
   <app-header></app-header>
   <app-title (addTodo)="addTodo($event)"></app-title>
-  <!-- <h1>
-    {{ title }}
-  </h1> -->
+  
   <img width="150" alt="Todo Check" src="assets/green-check.png" >
-  <app-todos [events]="addToList.asObservable()"></app-todos>
+  <app-todos [todos]="todoList"></app-todos>
 </div>
 
 <router-outlet></router-outlet>

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChange } from '@angular/core';
 import { TodoService } from '../../services/todo.service'
 import { TodoModel } from '../../models/TodoModel';
 import { Observable, Subject } from 'rxjs';
+import { NgOnChangesFeature } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-todos',
@@ -9,22 +10,29 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  private eventSubscription: any;
-  //@Input() events: Observable<TodoModel>;
-  @Input() events:Subject<any>;
-  todos:TodoModel[];
+  @Input() newTodo: TodoModel;
+
+  @Input()todos:TodoModel[];
   constructor(private todoService:TodoService) { }
 
   ngOnInit() {
     this.todoService.getTodos().subscribe(result => {
       this.todos = result.data
     })
-    //this.eventSubscription = this.events.subscribe(({name}) => this.addTodoToList(name))
-    this.events.subscribe(event => {this.addTodoToList(event)})
   }
 
-  addTodoToList(todo:TodoModel){
-    console.log('still working ' + todo)
+  ngOnChange(changes: {[propKey: string]: SimpleChange}){
+     console.log('this.newTodo.name')
+     let test: string[] = [];
+     for (let propName in changes){
+       console.log(`test`)
+     }
+    //console.log(changes)
+  }
+
+  addTodo(todo:TodoModel){
+    //this.events.subscribe(event => {this.addTodoToList(event)})
+    console.log('still working ' + todo.name)
     
   }
 
