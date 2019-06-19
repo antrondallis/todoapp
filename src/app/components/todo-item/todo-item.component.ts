@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild  } from '@angular/core';
+
 
 import { ApiResult } from '../../models/ApiResult';
 import { TodoModel } from '../../models/TodoModel';
@@ -10,9 +11,22 @@ import { TodoModel } from '../../models/TodoModel';
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo: TodoModel
+  @Output() editTodo: EventEmitter<TodoModel> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
+  onEdit( itemId: number){
+    const forEdit = {
+      id: itemId,
+      name: '',
+      date: ''
+    }
+    this.editTodo.emit(forEdit)
+  }
+
+  deleteTodo(itemId: number){
+    console.log('delete: ' + itemId)
+  }
 }

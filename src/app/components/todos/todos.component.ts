@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, SimpleChange } from '@angular/core';
 import { TodoService } from '../../services/todo.service'
 import { TodoModel } from '../../models/TodoModel';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { NgOnChangesFeature } from '@angular/core/src/render3';
+import { ApiResult } from 'src/app/models/ApiResult';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-todos',
@@ -10,10 +12,17 @@ import { NgOnChangesFeature } from '@angular/core/src/render3';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  @Input() newTodo: TodoModel;
-
   @Input()todos:TodoModel[];
-  constructor(private todoService:TodoService) { }
+  result:ApiResult;
+  retrievedTodo:TodoModel;
+  subscription: Subscription;
+
+  constructor(private todoService:TodoService, private dataService: TodoService, private datepipe: DatePipe) {
+    this.dataService.getData().subscribe(data=>{
+      if(data)
+        this.addTodo(data);
+    })
+   }
 
   ngOnInit() {
     this.todoService.getTodos().subscribe(result => {
@@ -21,19 +30,24 @@ export class TodosComponent implements OnInit {
     })
   }
 
-  ngOnChange(changes: {[propKey: string]: SimpleChange}){
-     console.log('this.newTodo.name')
-     let test: string[] = [];
-     for (let propName in changes){
-       console.log(`test`)
-     }
-    //console.log(changes)
+  addTodo(todo:TodoModel){
+    //date: this.datepipe.transform(todoParam.date, 'yyyyMMdd h:mm a')
+    //todo.date = this.datepipe.transform(todo.date, 'MM/dd/yyyy h:mm a')
+    this.todoService.addTodo(todo).subscribe(result=>{
+      this.todos.push(todo); console.log(result.message + ' ' + todo.name)
+    });
+   //console.log(this.result);
   }
 
-  addTodo(todo:TodoModel){
-    //this.events.subscribe(event => {this.addTodoToList(event)})
-    console.log('still working ' + todo.name)
-    
+  editTodo(todo: TodoModel){
+    this.todoService.getTodo(todo.id).subscribe(result=>{
+      this.retrievedTodo = result.data; console.log(`${result.data.name}`)
+      this.retrievedTodo = {
+        id: result.data.id,
+        name: result.data.name,
+        date: result.data.date
+      };
+    });
   }
 
 }
