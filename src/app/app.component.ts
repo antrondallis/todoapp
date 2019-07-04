@@ -1,8 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { TodoModel } from './models/TodoModel';
 import { TodoService } from './services/todo.service';
-import { Subject } from 'rxjs';
-import { ApiResult } from './models/ApiResult';
 
 @Component({
   selector: 'app-root',

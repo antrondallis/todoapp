@@ -1,7 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
-
-import { ApiResult } from '../../models/ApiResult';
 import { TodoModel } from '../../models/TodoModel';
 
 @Component({

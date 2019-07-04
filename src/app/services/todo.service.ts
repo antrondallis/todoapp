@@ -8,7 +8,7 @@ import { TodoModel } from '../models/TodoModel';
 
 var headers_object = new HttpHeaders();
 headers_object.append('Content-Type', 'application/json');
-//headers_object.append('Access-Control-Allow-Allow-Origin', 'http://localhost:4200')
+//headers_object.append('Access-Control-Allow-Allow-Origin', '*')
 headers_object.append('access-control-allow-credentials', 'true')
 headers_object.append('access-control-allow-methods', 'GET,POST,PUT,DELETE')
 
@@ -55,6 +55,13 @@ export class TodoService {
   //PUT
   editTodo(todoParam: TodoModel):Observable<ApiResult>{
     return this.http.put<ApiResult>(this.API_URl, todoParam, {headers: headers_object});
+  }
+
+  //DELETE
+  deleteTodo(todoId: number):Observable<ApiResult>{
+    const url = `${this.API_URl}/${todoId}`
+    console.log(url)
+    return this.http.delete<ApiResult>(url, {headers: headers_object});
   }
 
   public setNewTodo(data: TodoModel){

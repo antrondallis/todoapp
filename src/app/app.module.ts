@@ -13,7 +13,6 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { TitleComponent } from './components/layout/title/title.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
-import { NgbModalBackdrop } from '@ng-bootstrap/ng-bootstrap/modal/modal-backdrop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
