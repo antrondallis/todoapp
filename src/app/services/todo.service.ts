@@ -10,7 +10,9 @@ var headers_object = new HttpHeaders();
 headers_object.append('Content-Type', 'application/json');
 //headers_object.append('Access-Control-Allow-Allow-Origin', 'http://localhost:4200')
 headers_object.append('access-control-allow-credentials', 'true')
-headers_object.append('access-control-allow-methods', 'GET,POST')
+headers_object.append('access-control-allow-methods', 'GET,POST,PUT,DELETE')
+
+
 
 const httpOptions = {
   headers: headers_object
@@ -26,11 +28,10 @@ const httpOptions = {
 
 export class TodoService {
   private _data: BehaviorSubject<any> = new BehaviorSubject<TodoModel>(null);
-  
+  latestList: any;
   API_URl:string = 'http://192.168.1.135/developers/todolist/api/Todo'
   //API_URl:string = 'https://localhost:44369/api/Todo'
   constructor(private datepipe: DatePipe, private http:HttpClient) { } 
-  
 
   //GET
   getTodos():Observable<ApiResult>{
@@ -39,7 +40,6 @@ export class TodoService {
 
   //GET{id}
   getTodo(id: number):Observable<ApiResult>{
-    console.log(`getting todo with id ${id}`)
     return this.http.get<ApiResult>(`${this.API_URl}/${id}`, httpOptions)
   }
 
@@ -52,6 +52,11 @@ export class TodoService {
     return this.http.post<ApiResult>(this.API_URl, postTodo, {headers: headers_object});
   }
 
+  //PUT
+  editTodo(todoParam: TodoModel):Observable<ApiResult>{
+    return this.http.put<ApiResult>(this.API_URl, todoParam, {headers: headers_object});
+  }
+
   public setNewTodo(data: TodoModel){
     this._data.next(data);
   }
@@ -60,5 +65,8 @@ export class TodoService {
     return this._data.asObservable();
   }
 
+  public formatDate(date: any){
+    //console.log(`format date in service ${date}`)
+  }
 
 }

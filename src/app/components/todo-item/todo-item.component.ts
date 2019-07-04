@@ -12,6 +12,7 @@ import { TodoModel } from '../../models/TodoModel';
 export class TodoItemComponent implements OnInit {
   @Input() todo: TodoModel
   @Output() editTodo: EventEmitter<TodoModel> = new EventEmitter();
+  @Output() deleteTodo: EventEmitter<TodoModel> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -26,7 +27,12 @@ export class TodoItemComponent implements OnInit {
     this.editTodo.emit(forEdit)
   }
 
-  deleteTodo(itemId: number){
-    console.log('delete: ' + itemId)
+  onDelete(itemId: number){
+    const forDelete = {
+      id: itemId,
+      name: '',
+      date: ''
+    }
+    this.deleteTodo.emit(forDelete);
   }
 }

@@ -18,7 +18,6 @@ export class AppComponent {
 
   addTodo(todo:TodoModel){
     this.newTodo = todo;
-    //console.log('emit works ' + this.newTodo.name + ' ' + this.newTodo.date);
 
 
     this.dataService.setNewTodo(this.newTodo);

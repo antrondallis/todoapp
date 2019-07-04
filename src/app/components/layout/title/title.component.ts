@@ -25,7 +25,6 @@ export class TitleComponent implements OnInit {
       name: this.name,
       date: this.date
     }
-    //console.log(`Todo Added: ${todo.name} ${todo.date}`);
     this.addTodo.emit(todo);
     
   }
